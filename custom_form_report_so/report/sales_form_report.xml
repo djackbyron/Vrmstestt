@@ -1,0 +1,262 @@
+<odoo>
+
+    <record id="report_action_sales_form" model="ir.actions.report">
+        <field name="name">Sales Form</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_form_report_so.report_template_sales_form</field>
+        <field name="report_file">custom_form_report_so.report_template_sales_form</field>
+    </record>
+
+    <template id="report_template_sales_form">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class='header'>
+                    <img src="/custom_form_report_so/static/description/logo.jpeg" style="max-height: 100px; width:Auto;"/>
+                    <br/>
+                    <br/>
+                    <div style="border-top-style: solid; border-top-color: #20B2AA; border-top-width:1px;"></div>
+                    <h4 style="padding-top:10px;">VERKOOPFORMULIER</h4>
+                </div>
+                <div class="page">
+                    <br/>
+                    <t t-foreach="docs" t-as="doc">
+                        <h4>
+                            <t t-esc="doc.name"/>
+                        </h4>
+                        <br/>
+                        <table width="100%" border="0">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <strong>Opdrachtgever:</strong>
+                                    </td>
+                                    <td style="width: 50%;">
+                                        <strong>Afleveradres:</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_id.name"/>
+                                    </td>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_shipping_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_id.street"/>
+                                    </td>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_shipping_id.street"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_id.city"/>
+                                    </td>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_shipping_id.city"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_id.phone"/>
+                                    </td>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_shipping_id.phone"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_id.mobile"/>
+                                    </td>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_shipping_id.mobile"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <table width="100%" border="0">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <strong>Algemene afspraken:</strong>
+                                    </td>
+                                    <td style="width: 50%;">
+                                        <strong>Levering afspraken:</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <table width="100%" border="0">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 2%;">
+                                        <t t-if="doc.measure == True">
+                                            <input type="checkbox" checked="checked"/>
+                                        </t>
+                                        <t t-if="doc.measure == False">
+                                            <input type="checkbox"/>
+                                        </t>
+                                    </td>
+                                    <td style="width: 48%;text-align: left;">Inmeten</td>
+                                    <td style="width: 50%;">Leverdatum :
+                                        <t t-esc="doc.commitment_date"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 2%;">
+                                        <t t-if="doc.size_appointment == True">
+                                            <input type="checkbox" checked="checked"/>
+                                        </t>
+                                        <t t-if="doc.size_appointment == False">
+                                            <input type="checkbox"/>
+                                        </t>
+                                    </td>
+                                    <td style="width: 48%;text-align: left;">Maat Afspraak</td>
+                                    <td style="width: 50%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 2%;">
+                                        <t t-if="doc.installation == True">
+                                            <input type="checkbox" checked="checked"/>
+                                        </t>
+                                        <t t-if="doc.installation == False">
+                                            <input type="checkbox"/>
+                                        </t>
+                                    </td>
+                                    <td style="width: 48%;text-align: left;">Installatie</td>
+                                    <td style="width: 50%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 2%;">
+                                        <t t-if="doc.delivery == True">
+                                            <input type="checkbox" checked="checked"/>
+                                        </t>
+                                        <t t-if="doc.delivery == False">
+                                            <input type="checkbox"/>
+                                        </t>
+                                    </td>
+                                    <td style="width: 48%;text-align: left;">Bezorgen</td>
+                                    <td style="width: 50%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 2%;">
+                                        <input type="checkbox"/>
+                                    </td>
+                                    <td style="width: 48%;text-align: left;">Opgehaald</td>
+                                    <td style="width: 50%;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <table width="100%" border="0">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <strong>Hout voorwaarden</strong>
+                                    </td>
+                                    <td style="width: 50%;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <table width="100%" border="0">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 2%;">
+                                        <t t-if="doc.is_hinges_locks == True">
+                                            <input type="checkbox" checked="checked"/>
+                                        </t>
+                                        <t t-if="doc.is_hinges_locks == False">
+                                            <input type="checkbox"/>
+                                        </t>
+                                    </td>
+                                    <td style="width: 25%;">
+                                        <strong>Hang en sluitwerk</strong>
+                                    </td>
+                                    <td style="width: 73%;"></td>
+                                </tr>
+                                <td style="width: 2%;">
+                                    <t t-if="doc.is_glas == True">
+                                        <input type="checkbox" checked="checked"/>
+                                    </t>
+                                    <t t-if="doc.is_glas == False">
+                                        <input type="checkbox"/>
+                                    </t>
+                                </td>
+                                <td style="width: 25%;">
+                                    <strong>Glas</strong>
+                                </td>
+                                <td style="width: 73%;"></td>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <table width="100%" border="0">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 20%;">
+                                        <strong>Type glas:</strong>
+                                    </td>
+                                    <td style="width: 30%;">
+                                        <t t-if="doc.glass_type">
+                                            <t t-esc="doc.glass_type"/>
+                                        </t>
+                                        <t t-else="">
+                                            ______________
+                                        </t>
+                                    </td>
+                                    <td style="width: 50%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 20%;">
+                                        <strong>Grondbehandeling:</strong>
+                                    </td>
+                                    <td style="width: 30%;">
+                                        <t t-if="doc.glass_type">
+                                            <!--                                           <t t-esc="doc.glass_type"/>-->
+                                            ______________
+                                        </t>
+                                        <t t-else="">
+                                            ______________
+                                        </t>
+                                    </td>
+                                    <td style="width: 50%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 20%;">
+                                        <strong>Kleur rubber:</strong>
+                                    </td>
+                                    <td style="width: 30%;">
+                                        <t t-if="doc.glass_type">
+                                            <t t-esc="doc.rubber_color"/>
+                                        </t>
+                                        <t t-else="">
+                                            ______________
+                                        </t>
+                                    </td>
+                                    <td style="width: 50%;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <strong>Bijzonderheden :</strong>
+                        <br/>
+                        <t t-set='line' t-value="doc.print_extra_line()"/>
+                        <t t-if="doc.particularities">
+                            <u style="padding-left:50px;">
+                                <t t-esc="doc.particularities"/>
+                            </u>
+                        </t>
+                        <t t-else="">
+                            <t t-esc="line"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
