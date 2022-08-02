@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+    <t t-inherit="mail.MessageActionList" t-inherit-mode="extension">
+        <xpath expr="//span[@title='Delete']" position="replace">
+            <span t-if="messageActionList.message.NewcanBeDeleted" class="o_MessageActionList_action o_MessageActionList_actionDelete p-2 fa fa-lg fa-trash" title="Delete" role="button" tabindex="0" aria-label="Delete" t-on-click="messageActionList.onClickDelete"/>
+        </xpath>
+    </t>
+</templates>
