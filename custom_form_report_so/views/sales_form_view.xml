@@ -1,0 +1,50 @@
+<odoo>
+    <record id="view_order_form_inherited" model="ir.ui.view">
+        <field name="name">sale.order.form.inherited</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='customer_signature']" position="after">
+                <page name="sales_form" string="Verkoopformulier">
+                    <group>
+                        <group string="Contact personen">
+                            <field name="architect_id"/>
+                            <field name="c_supervisor_id"/>
+                            <field name="contractor"/>
+                        </group>
+                        <group string="Betalings/ prijsafspraak">
+                            <field name="standard_payment"/>
+                            <field name="anders"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Algemene voorwaarden">
+                            <field name="measure"/>
+                            <field name="size_appointment"/>
+                            <field name="installation"/>
+                            <field name="delivery"/>
+                            <field name="additional_explanation"/>
+                        </group>
+                        <group string="Hout voorwaarden">
+                            <field name="is_hinges_locks"/>
+                            <field name="rubber_color"/>
+                            <field name="type_of_finish"/>
+                            <field name="finish_color"/>
+                            <field name="is_glas"/>
+                            <field name="glass_type"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Bijzonderheden">
+                            <field name="special_order"/>
+                            <field name="materials"/>
+                        </group>
+                        <group string="Extra">
+                            <field name="particularities"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+      </record>
+</odoo>
