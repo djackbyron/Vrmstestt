@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="project_task_form_report">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class='header'>
+                    <img src="/custom_form_report_so/static/description/logo.jpeg" style="max-height: 100px; width:Auto;"/>
+                    <br/>
+                    <br/>
+                    <div style="border-top-style: solid; border-top-color: #20B2AA; border-top-width:1px;"></div>
+                    <h4 style="padding-top:10px;">Productieformulier</h4>
+                </div>
+                <div class="page">
+                    <br/>
+                    <t t-foreach="docs" t-as="doc">
+                        <h4>
+                            <t t-esc="doc.name"/>
+                        </h4>
+                        <br/>
+                        <div>
+                            <strong>Werkvoorbereider:</strong>
+                            <br/>
+                             <t t-foreach="docs.user_ids" t-as="user">
+                                <t t-esc="user.name"/>,
+                             </t>
+                        </div>
+                        <br/>
+                        <table width="100%" border="0">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <strong>Klant:</strong>
+                                    </td>
+                                    <td style="width: 50%;">
+                                      <t t-if="doc.sale_order_id">
+                                            <strong>Afleveradres:</strong>
+                                      </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_id.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc.sale_order_id.partner_shipping_id">
+                                            <t t-esc="doc.partner_shipping_id.name"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_id.street"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc.sale_order_id.partner_shipping_id">
+                                            <t t-esc="doc.sale_order_id.partner_shipping_id.street"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_id.city"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc.sale_order_id.partner_shipping_id">
+                                            <t t-esc="doc.sale_order_id.partner_shipping_id.city"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_id.phone"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc.sale_order_id.partner_shipping_id">
+                                            <t t-esc="doc.sale_order_id.partner_shipping_id.phone"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <t t-esc="doc.partner_id.mobile"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc.sale_order_id.partner_shipping_id">
+                                            <t t-esc="doc.sale_order_id.partner_shipping_id.mobile"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <strong>Algemene Bestelinformatie</strong>
+                        <br/>
+                        <table width="100%" border="0">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;">
+                                       <strong> Type Order </strong> : <span t-field="doc.order_type"/>
+                                    </td>
+                                    <td style="width: 50%;">
+                                        <strong> Levering Type </strong> : <span t-field="doc.levering_type"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <strong> Type project </strong> : <span t-field="doc.project_type"/>
+                                    </td>
+                                    <td style="width: 50%;">
+                                       <strong> Type order (Toelichting) </strong>: <span t-field="doc.order_type_explanation"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <strong> Levering (Toelichting) </strong> : <span t-field="doc.levering_explanation"/>
+                                    </td>
+                                    <td style="width: 50%;">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <strong>Algemene voorwaarden (Hout)</strong>
+                        <table width="100%" border="0">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <strong> Hang en sluit werk </strong>: <span t-field="doc.hinge_locks"/>
+                                    </td>
+                                    <td style="width: 50%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                       <strong> Kleur rubber </strong> :<span t-field="doc.color_rubber"/>
+                                    </td>
+                                    <td style="width: 50%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <strong>Type afwerking </strong> : <span t-field="doc.finishing_types"/>
+                                    </td>
+                                    <td style="width: 50%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <strong> Afwerking (RAL) </strong>: <span t-field="doc.finish_ral"/>
+                                    </td>
+                                    <td style="width: 50%;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <strong>Bijzonderheden :</strong>
+                        <br/>
+                        <t t-set='line' t-value="doc.print_extra_line()"/>
+                        <t t-if="doc.particularities">
+                            <u style="padding-left:50px;">
+                                <t t-esc="doc.particularities"/>
+                            </u>
+                        </t>
+                        <t t-else="">
+                            <t t-esc="line"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

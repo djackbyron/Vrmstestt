@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <record id="action_print_project_task_form" model="ir.actions.report">
+            <field name="name">Project Task Form</field>
+            <field name="model">project.task</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">custom_form_report_so.project_task_form_report</field>
+            <field name="report_file">custom_form_report_so.project_task_form_report</field>
+            <field name="binding_model_id" ref="model_project_task"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+
+</odoo>
