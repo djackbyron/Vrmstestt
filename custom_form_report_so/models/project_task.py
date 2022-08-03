@@ -9,26 +9,26 @@ class TaskInherit(models.Model):
     order_type_explanation = fields.Char(string="Type order (Toelichting)")
     levering_explanation = fields.Char(string="Levering (Toelichting)")
     finish_ral = fields.Char(string="Afwerking (RAL)")
-    particularities = fields.Char(string="Particularities")
+    particularities = fields.Char(string="Bijzonderheden")
     order_type = fields.Selection(
-        [('measure', 'Measure'), ('size', 'Size Appointment'), ('combination', 'Combination')],
+        [('Inmeten', 'Inmeten'), ('Maat afspraak', 'Maat afspraak'), ('Combinatie', 'Combinatie')],
         string='Type order')
     project_type = fields.Selection(
-        [('renovation', 'Renovation'), ('new_construction', 'New Construction')],
+        [('Renovatie', 'Renovatie'), ('Nieuwbouw', 'Nieuwbouw')],
         string='Type project')
     levering_type = fields.Selection(
-        [('installation', 'Installation'), ('deliver', 'Deliver'), ('deduct', 'Deduct'),
-         ('combination', 'Combination')],
+        [('Installatie', 'Installatie'), ('Bezorgen', 'Bezorgen'), ('Afhalen', 'Afhalen'),
+         ('Combinatie', 'Combinatie')],
         string='Levering Type')
     hinge_locks = fields.Selection(
-        [('and_sure', 'And - Sure'), ('no_customer', 'No - Customer'), ('combination', 'Combination')],
+        [('Ja - Vermaas', 'Ja - Vermaas'), ('Nee - Klant', 'Nee - Klant'), ('Combinatie', 'Combinatie')],
         string='Hang en sluit werk')
     color_rubber = fields.Selection(
-        [('black', 'Black'), ('white', 'White'), ('brown', 'Brown')],
+        [('Zwart', 'Zwart'), ('Wit', 'Wit'), ('Bruin', 'Bruin')],
         string='Kleur rubber')
-    finishing_type = fields.Selection(
-        [('primer', 'primer'), ('priming_varnishing', 'Priming and Varnishing'), ('transparent', 'Transparent'),
-         ('stain_transparent', 'Stain and Transparent'), ('untreated', 'Untreated'), ('combination', 'Combination')],
+    finishing_types = fields.Selection(
+        [('Primer', 'Primer'), ('Primer en aflakken', 'Primer en aflakken'), ('Transparent', 'Transparent'),
+         ('Stain en transparent', 'Stain en transparent'), ('Onbehandeld', 'Onbehandeld'), ('Combinatie', 'Combinatie')],
         string='Type afwerking')
 
     def print_extra_line(self):

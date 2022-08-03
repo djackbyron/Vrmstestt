@@ -19,10 +19,10 @@
                                    attrs="{'invisible': [('order_type', 'in', ['installation', 'deliver', 'deduct'])]}"/>
                         </group>
                         <group name="group_PPUNo_right" string="Algemene voorwaarden (Hout):">
-                            <field name="hinge_locks" string="Hinges and locks:"/>
-                            <field name="color_rubber" string="Color rubber.:"/>
-                            <field name="finishing_type" string="Finishing type:"/>
-                            <field name="finish_ral" string="Finish (RAL):"/>
+                            <field name="hinge_locks"/>
+                            <field name="color_rubber"/>
+                            <field name="finishing_types"/>
+                            <field name="finish_ral"/>
                         </group>
                     </group>
                     <group name="group_qhchc">

@@ -8,7 +8,7 @@
     "website": "",
     "category": "Base",
     "summary": """""",
-    "depends": ["base", "sale_management", "project"],
+    "depends": ["base", "sale_management","sale_timesheet","project"],
     "data": ["views/sales_form_view.xml",
              "views/project_task_view.xml",
              "report/sales_form_report.xml",
