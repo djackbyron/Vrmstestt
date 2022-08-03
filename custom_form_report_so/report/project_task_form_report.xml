@@ -44,7 +44,7 @@
                                     </td>
                                     <td>
                                         <t t-if="doc.sale_order_id.partner_shipping_id">
-                                            <t t-esc="doc.partner_id.name"/>,<t t-esc="doc.sale_order_id.partner_shipping_id.street"/>
+                                            <t t-esc="doc.partner_shipping_id.name"/>
                                         </t>
                                     </td>
                                 </tr>
@@ -54,7 +54,7 @@
                                     </td>
                                     <td>
                                         <t t-if="doc.sale_order_id.partner_shipping_id">
-                                           <t t-esc="doc.sale_order_id.partner_shipping_id.city"/>
+                                            <t t-esc="doc.sale_order_id.partner_shipping_id.street"/>
                                         </t>
                                     </td>
                                 </tr>
@@ -64,7 +64,7 @@
                                     </td>
                                     <td>
                                         <t t-if="doc.sale_order_id.partner_shipping_id">
-                                           <t t-esc="doc.sale_order_id.partner_shipping_id.phone"/>
+                                            <t t-esc="doc.sale_order_id.partner_shipping_id.city"/>
                                         </t>
                                     </td>
                                 </tr>
@@ -74,13 +74,18 @@
                                     </td>
                                     <td>
                                         <t t-if="doc.sale_order_id.partner_shipping_id">
-                                           <t t-esc="doc.sale_order_id.partner_shipping_id.mobile"/>
+                                            <t t-esc="doc.sale_order_id.partner_shipping_id.phone"/>
                                         </t>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50%;">
                                         <t t-esc="doc.partner_id.mobile"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc.sale_order_id.partner_shipping_id">
+                                            <t t-esc="doc.sale_order_id.partner_shipping_id.mobile"/>
+                                        </t>
                                     </td>
                                 </tr>
                             </tbody>

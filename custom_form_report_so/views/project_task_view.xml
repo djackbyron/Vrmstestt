@@ -15,7 +15,7 @@
                                    attrs="{'invisible': [('order_type', 'in', ['measure', 'size'])]}"/>
                             <field name="project_type"/>
                             <field name="levering_type"/>
-                            <field name="levering_explanation" string="Levering (explanation)"
+                            <field name="levering_explanation"
                                    attrs="{'invisible': [('order_type', 'in', ['installation', 'deliver', 'deduct'])]}"/>
                         </group>
                         <group name="group_PPUNo_right" string="Algemene voorwaarden (Hout):">
