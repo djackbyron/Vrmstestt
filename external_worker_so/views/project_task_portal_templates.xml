@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_task" inherit_id="project.portal_my_task" name="Portal: My Task external work-order">
+        <xpath expr="//t[@t-set='card_body']/div" position="after">
+            <t t-if="not task.display_timer_start_primary or task.encode_uom_in_days">
+                <button class="btn btn-primary start_task" t-att-data-task-id="task.id" id="start-btn">Start</button>
+            </t>
+
+<!--            <t t-if="task.display_timer_start_secondary == False or task.encode_uom_in_days">-->
+<!--                <button t-attf-class="btn btn-secondary start_sec_task" t-att-data-task-id="task.id" id="start-sec-btn">-->
+<!--                    Start secondary-->
+<!--                </button>-->
+<!--            </t>-->
+            <t t-if="not task.display_timer_pause or task.encode_uom_in_days">
+                <button class="btn btn-primary pause_task" t-att-data-task-id="task.id" type="object" id="pause-btn">
+                    Pause
+                </button>
+            </t>
+            <t t-if="not task.display_timer_resume or task.encode_uom_in_days">
+                <button class="btn btn-primary resume_task"
+                        t-att-data-task-id="task.id" id="resume-btn">Resume
+                </button>
+            </t>
+            <t t-if="not task.display_timer_stop or task.encode_uom_in_days">
+                <button t-attf-class="btn btn-primary stop_task"
+                        t-att-data-task-id="task.id" type="object" id="stop-btn">Stop
+                </button>
+            </t>
+        </xpath>
+    </template>
+</odoo>
