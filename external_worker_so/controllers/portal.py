@@ -255,38 +255,34 @@ class CustomerPortalInherit(CustomerPortal):
             attachment.generate_access_token()
         values = self._task_get_page_view_values(task_sudo, access_token, **kw)
         portal_task_id = request.env['project.task'].browse(task_id)
-        # show_portal_start_task = False
-        # show_portal_pause_task = False
-        # show_portal_resume_task = False
-        # show_portal_stop_task = False
-        # if not task_id.display_timer_start_primary or task_id.encode_uom_in_days:
-        #     show_portal_start_task = True
-        #     values.update({
-        #         'show_portal_start_task': True,
-        #     })
-        # else:
-        #     values.update({
-        #         'show_portal_start_task': False,
-        #     })
-        #
-        # if not task_id.display_timer_start_primary or task_id.encode_uom_in_days:
-        #     show_portal_pause_task = True
-        #     values.update({
-        #         'show_portal_pause_task': show_portal_pause_task,
-        #     })
-        #
-        # if not task_id.display_timer_start_primary or task_id.encode_uom_in_days:
-        #     show_portal_resume_task = True
-        #     values.update({
-        #         'show_portal_resume_task': show_portal_resume_task,
-        #     })
-        # if not task_id.display_timer_start_primary or task_id.encode_uom_in_days:
-        #     show_portal_stop_task = True
-        #     values.update({
-        #         'show_portal_stop_task': show_portal_stop_task,
-        #     })
-        values['display_timer_stop'] = portal_task_id.display_timer_stop
-        values['encode_uom_in_days'] = portal_task_id.encode_uom_in_days
 
+        # start
+        if portal_task_id.display_timer_start_primary:
+            values['start_timer_visible'] = True
+        else:
+            values['start_timer_visible'] = False
 
+        # start secondary
+        if portal_task_id.display_timer_start_secondary:
+            values['start_sec_timer_visible'] = True
+        else:
+            values['start_sec_timer_visible'] = False
+
+        # stop
+        if portal_task_id.display_timer_stop:
+            values['stop_timer_visible'] = True
+        else:
+            values['stop_timer_visible'] = False
+
+        # pause
+        if portal_task_id.display_timer_pause:
+            values['pause_timer_visible'] = True
+        else:
+            values['pause_timer_visible'] = False
+
+        # resume
+        if portal_task_id.display_timer_resume:
+            values['resume_timer_visible'] = True
+        else:
+            values['resume_timer_visible'] = False
         return request.render("project.portal_my_task", values)
