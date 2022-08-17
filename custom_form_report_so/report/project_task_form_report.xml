@@ -9,28 +9,33 @@
                     <br/>
                     <br/>
                     <div style="border-top-style: solid; border-top-color: #20B2AA; border-top-width:1px;"></div>
-                    <h4 style="padding-top:10px;">Productieformulier</h4>
+                    <h3 style="padding-top:10px;">PRODUCTIE  FORMULIER</h3>
+                    <br/>
                 </div>
                 <div class="page">
                     <br/>
                     <t t-foreach="docs" t-as="doc">
-                        <h4>
-                            <t t-esc="doc.name"/>
+                        <h4 style="margin-top:40px;">
+                            <strong><t t-esc="doc.name"/></strong>
                         </h4>
-                        <br/>
-                        <div>
-                            <strong>Werkvoorbereider:</strong>
-                            <br/>
-                             <t t-foreach="docs.user_ids" t-as="user">
+                        <table width="100%" border="0">
+                            <tr>
+                                <td style="width: 20%;">
+                                     <strong>Werkvoorbereider :</strong>
+                                </td>
+                                 <td style="width: 80%;">
+                                     <t t-foreach="docs.user_ids" t-as="user">
                                 <t t-esc="user.name"/>,
                              </t>
-                        </div>
+                                </td>
+                            </tr>
+                        </table>
                         <br/>
                         <table width="100%" border="0">
                             <tbody>
                                 <tr>
                                     <td style="width: 50%;">
-                                        <strong>Klant:</strong>
+                                        <strong>Opdrachtgever:</strong>
                                     </td>
                                     <td style="width: 50%;">
                                       <t t-if="doc.sale_order_id">
@@ -39,12 +44,16 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50%;">
                                         <t t-esc="doc.partner_id.name"/>
                                     </td>
                                     <td>
                                         <t t-if="doc.sale_order_id.partner_shipping_id">
-                                            <t t-esc="doc.partner_shipping_id.name"/>
+                                            <t t-esc="doc.sale_order_id.partner_shipping_id.name"/>
                                         </t>
                                     </td>
                                 </tr>
@@ -70,86 +79,147 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50%;">
-                                        <t t-esc="doc.partner_id.phone"/>
+                                       <t t-if="doc.partner_id.phone">Tel:<t t-esc="doc.partner_id.phone"/></t>
                                     </td>
                                     <td>
-                                        <t t-if="doc.sale_order_id.partner_shipping_id">
-                                            <t t-esc="doc.sale_order_id.partner_shipping_id.phone"/>
+                                        <t t-if="doc.sale_order_id.partner_shipping_id and doc.sale_order_id.partner_shipping_id.phone">
+                                            Tel:<t t-esc="doc.sale_order_id.partner_shipping_id.phone"/>
                                         </t>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50%;">
-                                        <t t-esc="doc.partner_id.mobile"/>
+                                        <t t-if="doc.partner_id.mobile">Mob:<t t-esc="doc.partner_id.mobile"/></t>
                                     </td>
                                     <td>
-                                        <t t-if="doc.sale_order_id.partner_shipping_id">
-                                            <t t-esc="doc.sale_order_id.partner_shipping_id.mobile"/>
+                                        <t t-if="doc.sale_order_id.partner_shipping_id and doc.sale_order_id.partner_shipping_id.mobile">
+                                            Mob:<t t-esc="doc.sale_order_id.partner_shipping_id.mobile"/>
                                         </t>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <br/>
-                        <strong>Algemene Bestelinformatie</strong>
-                        <br/>
                         <table width="100%" border="0">
+                            <tr>
+                                <td style="width: 26%;" colspan="2">
+                                     <strong>Algemene afspraken :</strong>
+                                </td>
+                                 <td style="width: 24%;" colspan="2">
+                                     <strong>Hout voorwaarden:</strong>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                         <table width="100%" border="0">
                             <tbody>
                                 <tr>
-                                    <td style="width: 50%;">
-                                       <strong> Type Order </strong> : <span t-field="doc.order_type"/>
+                                    <td style="width: 20%;">
+                                        <strong> Type order </strong> :
                                     </td>
-                                    <td style="width: 50%;">
-                                        <strong> Levering Type </strong> : <span t-field="doc.levering_type"/>
+                                    <td style="width: 30%;">
+                                        <span t-field="doc.order_type"/>
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <strong> Hang en sluit werk </strong> :
+                                    </td>
+                                    <td style="width: 30%;">
+                                        <span t-field="doc.hinge_locks"/>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td style="width: 21%;">
+                                        <strong> Type order (Toelichting) </strong> :
+                                    </td>
+                                    <td style="width: 29%;">
+                                        <span t-field="doc.order_type_explanation"/>
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <strong> Kleur rubber </strong> :
+                                    </td>
+                                    <td style="width: 30%;">
+                                        <span t-field="doc.color_rubber"/>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td style="width: 20%;">
+                                    </td>
+                                    <td style="width: 30%;">
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <strong> Type afwerking </strong> :
+                                    </td>
+                                    <td style="width: 30%;">
+                                        <span t-field="doc.finishing_types"/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 50%;">
-                                        <strong> Type project </strong> : <span t-field="doc.project_type"/>
+                                    <td style="width: 20%;">
+<!--                                        <strong> Levering Type </strong> :-->
                                     </td>
-                                    <td style="width: 50%;">
-                                       <strong> Type order (Toelichting) </strong>: <span t-field="doc.order_type_explanation"/>
+                                    <td style="width: 30%;">
+<!--                                        <span t-field="doc.levering_type"/>-->
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50%;">
-                                        <strong> Levering (Toelichting) </strong> : <span t-field="doc.levering_explanation"/>
+                                    <td style="width: 20%;">
+                                        <strong> Afwerking RAL </strong> :
                                     </td>
-                                    <td style="width: 50%;">
+                                    <td style="width: 30%;">
+                                        <span t-field="doc.finish_ral"/>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <br/>
-                        <strong>Algemene voorwaarden (Hout)</strong>
                         <table width="100%" border="0">
-                            <tbody>
-                                <tr>
-                                    <td style="width: 50%;">
-                                        <strong> Hang en sluit werk </strong>: <span t-field="doc.hinge_locks"/>
-                                    </td>
-                                    <td style="width: 50%;"></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50%;">
-                                       <strong> Kleur rubber </strong> :<span t-field="doc.color_rubber"/>
-                                    </td>
-                                    <td style="width: 50%;"></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50%;">
-                                        <strong>Type afwerking </strong> : <span t-field="doc.finishing_types"/>
-                                    </td>
-                                    <td style="width: 50%;"></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50%;">
-                                        <strong> Afwerking (RAL) </strong>: <span t-field="doc.finish_ral"/>
-                                    </td>
-                                    <td style="width: 50%;"></td>
-                                </tr>
-                            </tbody>
+                            <tr>
+                                <td style="width: 20%;">
+                                    <strong> Type project </strong> :
+                                </td>
+                                <td style="width: 30%;">
+                                    <span t-field="doc.project_type"/>
+                                </td>
+                                <td style="width: 50%;"></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;">
+                                    <strong> Levering Type </strong> :
+                                </td>
+                                <td style="width: 30%;">
+                                    <span t-field="doc.levering_type"/>
+                                </td>
+                                <td style="width: 50%;"></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;">
+                                    <strong> Levering [Toelichting] </strong> :
+                                </td>
+                                <td style="width: 30%;">
+                                    <span t-field="doc.levering_explanation"/>
+                                </td>
+                                <td style="width: 50%;"></td>
+                            </tr>
+<!--                            -->
+<!--                            <tr>-->
+<!--                                <td style="width: 50%;">-->
+<!--                                     <strong> Type project </strong> : <span t-field="doc.project_type"/>-->
+<!--                                </td>-->
+
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td style="width: 50%;">-->
+<!--                                    <strong> Levering Type </strong> : <span t-field="doc.levering_type"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <strong> Levering [Toelichting] </strong> : <span t-field="doc.levering_explanation"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
                         </table>
+                        <br/>
+                        <br/>
+                        <strong> Leverdatum </strong> : <span t-field="doc.date_deadline"/>
+                        <br/>
                         <br/>
                         <strong>Bijzonderheden :</strong>
                         <br/>

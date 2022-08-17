@@ -13,6 +13,7 @@ from odoo.tools import groupby as groupbyelem
 from odoo.osv.expression import OR, AND
 from odoo.tools import consteq, plaintext2html
 from odoo.addons.portal.controllers import mail
+from odoo.exceptions import AccessError, MissingError
 
 
 def _check_special_access(res_model, res_id, token='', _hash='', pid=False):
@@ -241,3 +242,47 @@ class CustomerPortalInherit(CustomerPortal):
             'filterby': filterby,
         })
         return request.render("project.portal_my_tasks", values)
+
+    @http.route(['/my/task/<int:task_id>'], type='http', auth="public", website=True)
+    def portal_my_task(self, task_id, access_token=None, **kw):
+        try:
+            task_sudo = self._document_check_access('project.task', task_id, access_token)
+        except (AccessError, MissingError):
+            return request.redirect('/my')
+
+        # ensure attachment are accessible with access token inside template
+        for attachment in task_sudo.attachment_ids:
+            attachment.generate_access_token()
+        values = self._task_get_page_view_values(task_sudo, access_token, **kw)
+        portal_task_id = request.env['project.task'].browse(task_id)
+
+        # start
+        if portal_task_id.display_timer_start_primary:
+            values['start_timer_visible'] = True
+        else:
+            values['start_timer_visible'] = False
+
+        # start secondary
+        if portal_task_id.display_timer_start_secondary:
+            values['start_sec_timer_visible'] = True
+        else:
+            values['start_sec_timer_visible'] = False
+
+        # stop
+        if portal_task_id.display_timer_stop:
+            values['stop_timer_visible'] = True
+        else:
+            values['stop_timer_visible'] = False
+
+        # pause
+        if portal_task_id.display_timer_pause:
+            values['pause_timer_visible'] = True
+        else:
+            values['pause_timer_visible'] = False
+
+        # resume
+        if portal_task_id.display_timer_resume:
+            values['resume_timer_visible'] = True
+        else:
+            values['resume_timer_visible'] = False
+        return request.render("project.portal_my_task", values)

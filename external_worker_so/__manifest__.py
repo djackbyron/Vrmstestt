@@ -11,12 +11,13 @@
     "website": "",
     "description": """External Worker Enhancement""",
     "live_test_url": "",
-    "depends": ['hr', 'project', 'website', 'contacts', 'portal', 'web'
+    "depends": ['hr', 'project', 'website', 'contacts', 'portal', 'web', 'timesheet_grid', 'timer'
                 ],
     "data": [
         # Security
         'views/hr_employee_view.xml',
         'views/project_task_view.xml',
+        'views/project_task_portal_templates.xml',
     ],
     "images": [],
     'assets': {
@@ -26,6 +27,7 @@
             'external_worker_so/static/src/js/portal_chatter.js',
         ],
         'web.assets_frontend': [
+            'external_worker_so/static/src/js/portal_project_task.js',
         ],
         'web.assets_tests': [
         ],

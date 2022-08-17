@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_task" inherit_id="project.portal_my_task" name="Portal: My Task external work-order">
+        <xpath expr="//t[@t-set='card_body']/div" position="after">
+            <div class="btn-toolbar">
+                <button t-att-style="'display:none' if not start_timer_visible else ''"
+                        class="btn btn-primary ml-2 start_task"
+                        t-att-data-task-id="task.id" id="start-btn">
+                    <i class="fa fa-fw o_button_icon fa-clock-o"></i>
+                    Start
+                </button>
+                <button t-att-style="'display:none' if not start_sec_timer_visible else ''"
+                        class="btn btn-primary ml-2 start_sec_task" t-att-data-task-id="task.id" id="start-sec-btn">
+                    <i class="fa fa-fw o_button_icon fa-clock-o"></i>
+                    Start
+                </button>
+                <button t-att-style="'display:none' if not stop_timer_visible else ''"
+                        class="btn btn-primary ml-2 stop_task"
+                        t-att-data-task-id="task.id" type="object" id="stop-btn">Stop
+                </button>
+                <button t-att-style="'display:none' if not pause_timer_visible else ''"
+                        class="btn btn-primary ml-2 pause_task"
+                        t-att-data-task-id="task.id" type="object" id="pause-btn">Pause
+                </button>
+                <button t-att-style="'display:none' if not resume_timer_visible else ''"
+                        class="btn btn-primary ml-2 resume_task"
+                        t-att-data-task-id="task.id" id="resume-btn">Resume
+                </button>
+            </div>
+        </xpath>
+    </template>
+</odoo>
