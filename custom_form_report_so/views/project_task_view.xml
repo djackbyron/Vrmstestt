@@ -11,15 +11,26 @@
                     <group name="group_ppuno_left">
                         <group name="group_PPUNo_left" string="Algemene order info:">
                             <field name="order_type"/>
-                            <field name="order_type_explanation"
-                                   attrs="{'invisible': [('order_type', 'in', ['measure', 'size'])]}"/>
+                            <label for="order_type_explanation"/>
+                                <div>
+                                    <field name="order_type_explanation"/>
+                                    <field name="order_type_explanation1" attrs="{'invisible': [('order_type', 'in', ['Inmeten', 'Maat afspraak'])]}"/>
+                                </div>
                             <field name="project_type"/>
                             <field name="levering_type"/>
-                            <field name="levering_explanation"
-                                   attrs="{'invisible': [('order_type', 'in', ['installation', 'deliver', 'deduct'])]}"/>
+                            <label for="levering_explanation"/>
+                                <div>
+                                    <field name="levering_explanation"/>
+                                    <field name="levering_explanation1" attrs="{'invisible': [('levering_type', 'not in', ['Combinatie'])]}"/>
+                                </div>
                         </group>
                         <group name="group_PPUNo_right" string="Algemene voorwaarden (Hout):">
                             <field name="hinge_locks"/>
+                            <label for="hinge_locks_explanation"/>
+                                <div>
+                                    <field name="hinge_locks_explanation"/>
+                                    <field name="hinge_locks_explanation1" attrs="{'invisible': [('hinge_locks', 'not in', ['Combinatie'])]}"/>
+                                </div>
                             <field name="color_rubber"/>
                             <field name="finishing_types"/>
                             <field name="finish_ral"/>

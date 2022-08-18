@@ -7,7 +7,11 @@ class TaskInherit(models.Model):
     _inherit = "project.task"
 
     order_type_explanation = fields.Char(string="Type order (Toelichting):")
+    order_type_explanation1 = fields.Char()
     levering_explanation = fields.Char(string="Levering (Toelichting):")
+    levering_explanation1 = fields.Char()
+    hinge_locks_explanation = fields.Char(string="Hang en sluit werk (Toelichting):")
+    hinge_locks_explanation1 = fields.Char()
     finish_ral = fields.Char(string="Afwerking (RAL):")
     particularities = fields.Char(string="Bijzonderheden:")
     order_type = fields.Selection(
