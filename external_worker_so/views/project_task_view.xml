@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--  Inherit Project Task Form View  -->
+        <record id="view_task_form2_inherit_external_worker_so" model="ir.ui.view">
+            <field name="name">project.task.form.inherit.external.worker.so</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_ids']" position="attributes">
+                    <attribute name="domain">[('active', '=', True)]
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
