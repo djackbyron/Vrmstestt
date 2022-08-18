@@ -68,4 +68,25 @@ $(document).on('click', '.stop_task', function(ev){
          $('.start_sec_task').css('display','block');
     });
 });
+$(document).on('click', '.field_service_stage', function(ev){
+    self = this;
+    let $el = $(ev.currentTarget);
+    let stage_id = parseInt($(ev.currentTarget).attr('data-value'))
+    let task_id = parseInt($(ev.currentTarget).attr('data-task-id'))
+    return rpc.query({
+        model: 'project.task',
+        method: 'portal_stage_change',
+        args: [task_id, stage_id],
+    }).then(function(result){
+        let disabled_button = $('.field_service_stage.btn-secondary');
+        if (disabled_button.length > 0){
+            disabled_button.removeClass('btn-secondary');
+            disabled_button.removeClass('disabled');
+            disabled_button.addClass('btn-primary');
+        }
+        $el.removeClass('btn-primary');
+        $el.addClass('btn-secondary');
+        $el.addClass('disabled');
+    });
+});
 });

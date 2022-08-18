@@ -5,9 +5,6 @@
             <button t-attf-data-action="/mail/chatter_log_a_note"
                     class="o_portal_chatter_log_composer_btn btn btn-primary"
                     type="submit">Log</button>
-            <button t-attf-data-action="/mail/start_task_timer"
-                    class="o_portal_chatter_log_composer_btn btn btn-primary"
-                    type="submit">Log</button>
         </t>
     </t>
 </templates>
