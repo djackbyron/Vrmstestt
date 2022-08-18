@@ -34,10 +34,10 @@
                         <table width="100%" border="0">
                             <tbody>
                                 <tr>
-                                    <td style="width: 50%;">
+                                    <td style="width: 48%;">
                                         <strong>Opdrachtgever:</strong>
                                     </td>
-                                    <td style="width: 50%;">
+                                    <td style="width: 52%;">
                                       <t t-if="doc.sale_order_id">
                                             <strong>Afleveradres:</strong>
                                       </t>
@@ -48,7 +48,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 50%;">
+                                    <td style="width: 48%;">
                                         <t t-esc="doc.partner_id.name"/>
                                     </td>
                                     <td>
@@ -58,7 +58,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 50%;">
+                                    <td style="width: 48%;">
                                         <t t-esc="doc.partner_id.street"/>
                                     </td>
                                     <td>
@@ -68,7 +68,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 50%;">
+                                    <td style="width: 48%;">
                                         <t t-esc="doc.partner_id.city"/>
                                     </td>
                                     <td>
@@ -78,7 +78,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 50%;">
+                                    <td style="width: 48%;">
                                        <t t-if="doc.partner_id.phone">Tel:<t t-esc="doc.partner_id.phone"/></t>
                                     </td>
                                     <td>
@@ -88,7 +88,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 50%;">
+                                    <td style="width: 48%;">
                                         <t t-if="doc.partner_id.mobile">Mob:<t t-esc="doc.partner_id.mobile"/></t>
                                     </td>
                                     <td>
@@ -100,52 +100,59 @@
                             </tbody>
                         </table>
                         <br/>
-                        <table width="100%" border="0">
-                            <tr>
-                                <td style="width: 26%;" colspan="2">
-                                     <strong>Algemene afspraken :</strong>
+                        <div class="row col-12">
+                            <table width="50%">
+                               <tr>
+                                    <td style="width: 50%;">
+                                        <strong>Algemene afspraken :</strong>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table width="50%">
+                                <td style="width: 20%;">
+                                    <strong> Hout voorwaarden :</strong>
                                 </td>
-                                 <td style="width: 24%;" colspan="2">
-                                     <strong>Hout voorwaarden:</strong>
-                                </td>
-                            </tr>
-                        </table>
+                            </table>
+                        </div>
                         <br/>
-                         <table width="100%" border="0">
-                            <tbody>
-                                <tr>
+                        <div class="row col-12">
+                            <table width="50%">
+                               <tr>
                                     <td style="width: 20%;">
                                         <strong> Type order </strong> :
                                     </td>
                                     <td style="width: 30%;">
                                         <span t-field="doc.order_type"/>
                                     </td>
-                                    <td style="width: 20%;">
-                                        <strong> Hang en sluit werk </strong> :
-                                    </td>
-                                    <td style="width: 30%;">
-                                        <span t-field="doc.hinge_locks"/>
-                                    </td>
                                 </tr>
-                                 <tr>
-                                    <td style="width: 21%;">
+                                <tr>
+                                    <td style="width: 20%;">
                                         <strong> Type order (Toelichting) </strong> :
                                     </td>
-                                    <td style="width: 29%;">
-                                        <span t-field="doc.order_type_explanation"/>
-                                    </td>
-                                    <td style="width: 20%;">
-                                        <strong> Kleur rubber </strong> :
-                                    </td>
                                     <td style="width: 30%;">
-                                        <span t-field="doc.color_rubber"/>
+                                        <span t-field="doc.order_type_explanation"/><br/>
+                                        <t t-if="doc.order_type == 'Combinatie'"><span t-field="doc.order_type_explanation1"/></t>
                                     </td>
                                 </tr>
+                            </table>
+                            <table width="50%">
+                                <tr>
+                                <td style="width: 20%;">
+                                    <strong> Hang en sluit werk </strong> :
+                                </td>
+                                <td style="width: 30%;">
+                                    <span t-field="doc.hinge_locks"/>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td style="width: 20%;">
+                                            <strong> Kleur rubber </strong> :
+                                        </td>
+                                        <td style="width: 30%;">
+                                            <span t-field="doc.color_rubber"/>
+                                        </td>
+                                </tr>
                                  <tr>
-                                    <td style="width: 20%;">
-                                    </td>
-                                    <td style="width: 30%;">
-                                    </td>
                                     <td style="width: 20%;">
                                         <strong> Type afwerking </strong> :
                                     </td>
@@ -153,13 +160,7 @@
                                         <span t-field="doc.finishing_types"/>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td style="width: 20%;">
-<!--                                        <strong> Levering Type </strong> :-->
-                                    </td>
-                                    <td style="width: 30%;">
-<!--                                        <span t-field="doc.levering_type"/>-->
-                                    </td>
+                                 <tr>
                                     <td style="width: 20%;">
                                         <strong> Afwerking RAL </strong> :
                                     </td>
@@ -167,8 +168,8 @@
                                         <span t-field="doc.finish_ral"/>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
+                            </table>
+                        </div>
                         <br/>
                         <table width="100%" border="0">
                             <tr>
@@ -194,27 +195,11 @@
                                     <strong> Levering [Toelichting] </strong> :
                                 </td>
                                 <td style="width: 30%;">
-                                    <span t-field="doc.levering_explanation"/>
+                                    <span t-field="doc.levering_explanation"/><br/>
+                                    <t t-if="doc.levering_type == 'Combinatie'"><span t-field="doc.levering_explanation1"/></t>
                                 </td>
                                 <td style="width: 50%;"></td>
                             </tr>
-<!--                            -->
-<!--                            <tr>-->
-<!--                                <td style="width: 50%;">-->
-<!--                                     <strong> Type project </strong> : <span t-field="doc.project_type"/>-->
-<!--                                </td>-->
-
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="width: 50%;">-->
-<!--                                    <strong> Levering Type </strong> : <span t-field="doc.levering_type"/>-->
-<!--                                </td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td>-->
-<!--                                    <strong> Levering [Toelichting] </strong> : <span t-field="doc.levering_explanation"/>-->
-<!--                                </td>-->
-<!--                            </tr>-->
                         </table>
                         <br/>
                         <br/>

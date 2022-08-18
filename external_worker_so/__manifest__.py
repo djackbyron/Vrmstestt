@@ -11,13 +11,15 @@
     "website": "",
     "description": """External Worker Enhancement""",
     "live_test_url": "",
-    "depends": ['hr', 'project', 'website', 'contacts', 'portal', 'web', 'timesheet_grid', 'timer'
+    "depends": ['hr', 'project', 'website', 'contacts', 'portal', 'web', 'timesheet_grid', 'timer', 'industry_fsm'
                 ],
     "data": [
         # Security
         'views/hr_employee_view.xml',
         'views/project_task_view.xml',
         'views/project_task_portal_templates.xml',
+        # 'views/field_service_portal_templates.xml',
+        'views/portal_field_service_templates.xml',
     ],
     "images": [],
     'assets': {

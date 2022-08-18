@@ -3,7 +3,7 @@
     <data>
         <!-- QWeb Reports -->
         <record id="action_print_project_task_form" model="ir.actions.report">
-            <field name="name">Project Task Form</field>
+            <field name="name">Productie Formulier</field>
             <field name="model">project.task</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">custom_form_report_so.project_task_form_report</field>
