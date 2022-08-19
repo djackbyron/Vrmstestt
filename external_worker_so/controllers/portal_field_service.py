@@ -19,10 +19,9 @@ class CustomerPortalFieldServiceInherit(CustomerPortal):
     def _prepare_home_portal_values(self, counters):
         values = super()._prepare_home_portal_values(counters)
         if 'service_count' in counters:
-            values['service_count'] = request.env['project.task'].search_count(
+            values['service_count'] = request.env['project.task'].sudo().search_count(
                 [('user_ids', 'in', request.env.user.id), ('is_fsm', '=', True)]) \
                 if request.env['project.task'].check_access_rights('read', raise_exception=False) else 0
-        print("_prepare_home_portal_values------------------------", values)
         return values
 
     def _service_get_page_view_values(self, service, access_token, **kwargs):
@@ -43,7 +42,6 @@ class CustomerPortalFieldServiceInherit(CustomerPortal):
             'project_types': project_types,
             'service_stage_id': service.stage_id,
         }
-        print("\n\n_service_get_page_view_values-------------------------values", values)
         return self._get_page_view_values(service, access_token, values, history, False, **kwargs)
 
     def _service_get_searchbar_sortings(self):
