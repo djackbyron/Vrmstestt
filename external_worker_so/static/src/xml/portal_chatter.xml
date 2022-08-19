@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="portal.Composer">
+        <t t-jquery="button.o_portal_chatter_composer_btn" t-operation="after">
+            <button t-attf-data-action="/mail/chatter_log_a_note"
+                    class="o_portal_chatter_log_composer_btn btn btn-primary"
+                    type="submit">Log</button>
+        </t>
+    </t>
+</templates>

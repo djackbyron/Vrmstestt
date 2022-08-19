@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <template id="services_portal_layout" name="Portal layout: Service menu entry"
+              inherit_id="portal.portal_breadcrumbs" priority="41">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'service' or service_task"
+                t-attf-class="breadcrumb-item #{'active ' if not service_task else ''}">
+                <a t-if="service_task" t-attf-href="/my/services?{{ keep_query() }}">Services</a>
+                <t t-else="">My Service</t>
+            </li>
+            <li t-if="service_task" class="breadcrumb-item active text-truncate">
+                <span t-field="service_task.name"/>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="portal_my_home_field_service" name="Show Field Services" customize_show="True" inherit_id="portal.portal_my_home"
+              priority="41">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Field Services</t>
+                <t t-set="url" t-value="'/my/services'"/>
+                <t t-set="placeholder_count" t-value="'service_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_services" name="My Services">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Services</t>
+            </t>
+            <t t-if="not grouped_services">
+                <div class="alert alert-warning mt8" role="alert">
+                    There are no Services.
+                </div>
+            </t>
+            <t t-call="external_worker_so.portal_services_list"/>
+        </t>
+    </template>
+
+
+    <template id="portal_services_list" name="Services List">
+        <t t-if="grouped_services">
+            <t t-call="portal.portal_table">
+                <t t-foreach="grouped_services" t-as="services">
+                    <thead>
+                        <tr t-attf-class="{{'thead-light' if not groupby == 'none' else ''}}">
+                            <th class="text-left">Ref</th>
+                            <th t-if="groupby != 'priority'">Priority</th>
+                            <th t-if="groupby == 'none'">Name</th>
+                            <th t-if="groupby == 'project'">
+                                <em class="font-weight-normal text-muted">
+                                    <span t-field="services[0].sudo().project_id.label_tasks"/>
+                                    for project:
+                                </em>
+                                <span t-field="services[0].sudo().project_id.name"/>
+                            </th>
+                            <th t-if="groupby == 'stage'">
+                                <em class="font-weight-normal text-muted">
+                                    <span t-field="services[0].sudo().project_id.label_tasks"/>
+                                    in stage:
+                                </em>
+                                <span class="text-truncate" t-field="services[0].sudo().stage_id.name"/>
+                            </th>
+                            <th t-if="groupby == 'priority'">
+                                <em class="font-weight-normal text-muted">
+                                    <span t-field="services[0].sudo().project_id.label_tasks"/>
+                                    in priority:
+                                </em>
+                                <span class="text-truncate" t-field="services[0].sudo().priority"/>
+                            </th>
+                            <th t-if="groupby == 'status'">
+                                <em class="font-weight-normal text-muted">
+                                    <span t-field="services[0].sudo().project_id.label_tasks"/>
+                                    in status:
+                                </em>
+                                <span class="text-truncate" t-field="tasks[0].sudo().kanban_state"/>
+                            </th>
+                            <th t-if="groupby == 'customer'">
+                                <em class="font-weight-normal text-muted" t-if="services[0].sudo().partner_id">
+                                    <span t-field="services[0].sudo().project_id.label_tasks"/>
+                                    for customer:
+                                </em>
+                                <span class="text-truncate" t-field="services[0].sudo().partner_id.name"/>
+                            </th>
+                            <th name="project_portal_assignees">Assignees</th>
+                            <th t-if="groupby != 'status'">Status</th>
+                            <th t-if="groupby != 'project'">Project</th>
+                            <th t-if="groupby != 'stage'">Stage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="services" t-as="service">
+                            <tr>
+                                <td class="text-left">
+                                    #
+                                    <span t-esc="service.id"/>
+                                </td>
+                                <td t-if="groupby != 'priority'">
+                                    <t t-call="external_worker_so.portal_my_services_priority_widget_template"/>
+                                </td>
+                                <td>
+                                    <a t-attf-href="/my/#{service_url}/#{service.id}?{{ keep_query() }}">
+                                        <span t-field="service.name"/>
+                                    </a>
+                                </td>
+                                <td name="project_portal_assignees">
+                                    <t t-set="assignees" t-value="service.sudo().user_ids"/>
+                                    <span t-if="assignees"
+                                          t-out="'%s%s' % (assignees[:1].name, ' + %s others' % len(assignees[1:]) if len(assignees.user_ids) > 1 else '')"
+                                          t-att-title="'\n'.join(assignees[1:].mapped('name'))"/>
+                                </td>
+                                <td t-if="groupby != 'status'">
+                                    <t t-call="external_worker_so.portal_my_services_state_widget_template">
+                                        <t t-set="path" t-value="'tasks'"/>
+                                    </t>
+                                </td>
+                                <td t-if="groupby != 'project'">
+                                    <span class="badge badge-pill badge-info mw-100 text-truncate"
+                                          title="Current project of the task" t-esc="service.project_id.name"/>
+                                </td>
+                                <td t-if="groupby != 'stage'">
+                                    <span class="badge badge-pill badge-info" title="Current stage of the task"
+                                          t-esc="service.stage_id.name"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_my_services_priority_widget_template" name="Priority Widget Template">
+        <span t-attf-class="o_priority_star fa fa-star#{'' if service.priority == '1' else '-o'}"/>
+    </template>
+
+    <template id="portal_my_services_state_widget_template" name="Status Widget Template">
+        <span t-att-title="service.kanban_state_label"
+              t-attf-class="o_status rounded-circle #{'bg-success' if service.kanban_state == 'done' else 'bg-danger' if service.kanban_state == 'blocked' else ''}"/>
+    </template>
+
+</odoo>
