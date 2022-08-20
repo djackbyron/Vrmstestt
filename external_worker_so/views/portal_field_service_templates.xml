@@ -34,7 +34,6 @@
                     <thead>
                         <tr t-attf-class="{{'thead-light' if not groupby == 'none' else ''}}">
                             <th class="text-left">Ref</th>
-                            <!--                            <th t-if="groupby != 'priority'">Priority</th>-->
                             <th t-if="groupby == 'none'">Name</th>
                             <th t-if="groupby == 'project'">
                                 <em class="font-weight-normal text-muted">
@@ -49,6 +48,20 @@
                                     in stage:
                                 </em>
                                 <span class="text-truncate" t-field="tasks[0].sudo().stage_id.name"/>
+                            </th>
+                            <th t-if="groupby == 'planned_date_begin'">
+                                <em class="font-weight-normal text-muted">
+                                    <span t-field="tasks[0].sudo().planned_date_begin" t-options='{"widget": "date"}'/>
+                                    Start Date:
+                                </em>
+                                <span class="text-truncate" t-field="tasks[0].sudo().planned_date_begin" t-options='{"widget": "date"}'/>
+                            </th>
+                            <th t-if="groupby == 'planned_date_end'">
+                                <em class="font-weight-normal text-muted">
+                                    <span t-field="tasks[0].sudo().planned_date_end" t-options='{"widget": "date"}'/>
+                                    End Date:
+                                </em>
+                                <span class="text-truncate" t-field="tasks[0].sudo().planned_date_end" t-options='{"widget": "date"}'/>
                             </th>
                             <th t-if="groupby == 'priority'">
                                 <em class="font-weight-normal text-muted">
@@ -72,9 +85,10 @@
                                 <span class="text-truncate" t-field="tasks[0].sudo().partner_id.name"/>
                             </th>
                             <th name="project_portal_assignees">Assignees</th>
-                            <!--                            <th t-if="groupby != 'status'">Status</th>-->
                             <th t-if="groupby != 'project'">Project</th>
                             <th t-if="groupby != 'stage'">Stage</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,9 +98,6 @@
                                     #
                                     <span t-esc="task.id"/>
                                 </td>
-                                <!--                                <td t-if="groupby != 'priority'">-->
-                                <!--                                    <t t-call="external_worker_so.portal_my_services_priority_widget_template"/>-->
-                                <!--                                </td>-->
                                 <td>
                                     <a t-attf-href="/my/#{service_url}/#{task.id}?{{ keep_query() }}">
                                         <span t-field="task.name"/>
@@ -98,11 +109,6 @@
                                           t-out="'%s%s' % (assignees[:1].name, ' + %s others' % len(assignees[1:]) if len(assignees.user_ids) > 1 else '')"
                                           t-att-title="'\n'.join(assignees[1:].mapped('name'))"/>
                                 </td>
-                                <!--                                <td t-if="groupby != 'status'">-->
-                                <!--                                    <t t-call="external_worker_so.portal_my_services_state_widget_template">-->
-                                <!--                                        <t t-set="path" t-value="'tasks'"/>-->
-                                <!--                                    </t>-->
-                                <!--                                </td>-->
                                 <td t-if="groupby != 'project'">
                                     <span class="badge badge-pill badge-info mw-100 text-truncate"
                                           title="Current project of the task" t-esc="task.project_id.name"/>
@@ -110,6 +116,12 @@
                                 <td t-if="groupby != 'stage'">
                                     <span class="badge badge-pill badge-info" title="Current stage of the task"
                                           t-esc="task.stage_id.name"/>
+                                </td>
+                                <td>
+                                    <span t-esc="task.planned_date_begin"/>
+                                </td>
+                                <td>
+                                    <span t-esc="task.planned_date_end"/>
                                 </td>
                             </tr>
                         </t>
@@ -139,10 +151,6 @@
         <span t-attf-class="o_priority_star fa fa-star#{'' if task.priority == '1' else '-o'}"/>
     </template>
 
-    <!--    <template id="portal_my_services_state_widget_template" name="Status Widget Template">-->
-    <!--        <span t-att-title="service.kanban_state_label" t-attf-class="o_status rounded-circle #{'bg-success' if service.kanban_state == 'done' else 'bg-danger' if service.kanban_state == 'blocked' else ''}"/>-->
-    <!--    </template>-->
-
     <template id="portal_my_service" name="My Task">
         <t t-call="portal.portal_layout">
             <t t-set="o_portal_fullwidth_alert" groups="project.group_project_user">
@@ -158,7 +166,6 @@
                         <div class="col-12">
                             <h5 class="d-flex mb-1 mb-md-0 row">
                                 <div class="col-9">
-                                    <!--                                    <t t-call="external_worker_so.portal_my_services_priority_widget_template"/>-->
                                     <span t-field="service.name" class="text-truncate"/>
                                     <small class="text-muted d-none d-md-inline">(#<span t-field="service.id"/>)
                                     </small>
@@ -167,27 +174,21 @@
                                     <div class="o_statusbar_status"
                                          name="stage_id">
                                         <t t-foreach="project_types" t-as="project_type">
-                                            <button type="button" t-att-data-value="project_type.id" t-att-data-task-id="service.id"
+                                            <button type="button" t-att-data-value="project_type.id"
+                                                    t-att-data-task-id="service.id"
                                                     t-att-aria-checked="'true' if project_type.id == service_stage_id.id else 'false'"
-                                                    role="radio" t-attf-class="btn o_arrow_button field_service_stage #{'btn-secondary disabled' if project_type.id == service_stage_id.id else 'btn-primary'}">
+                                                    role="radio"
+                                                    t-attf-class="btn o_arrow_button field_service_stage #{'btn-secondary disabled' if project_type.id == service_stage_id.id else 'btn-primary'}">
                                                 <span t-esc="project_type.name"/>
                                             </button>
                                         </t>
                                     </div>
-<!--                                    <small class="text-right">Stage:</small>-->
-<!--                                    <span t-field="service.stage_id.name" class=" badge badge-pill badge-info"-->
-<!--                                          title="Current stage of this task"/>-->
                                 </div>
                             </h5>
                         </div>
                     </div>
                 </t>
                 <t t-set="card_body">
-                    <!--                    <div class="float-right">-->
-                    <!--                        <t t-call="external_worker_so.portal_my_services_state_widget_template">-->
-                    <!--                            <t t-set="path" t-value="'task'"/>-->
-                    <!--                        </t>-->
-                    <!--                    </div>-->
                     <div class="row mt-3" t-if="service.user_ids or service.partner_id">
                         <div class="col-12 col-md-6 pb-2" t-if="service.user_ids">
                             <strong>Assignees</strong>

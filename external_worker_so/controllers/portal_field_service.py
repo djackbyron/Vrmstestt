@@ -54,8 +54,9 @@ class CustomerPortalFieldServiceInherit(CustomerPortal):
             'status': {'label': _('Status'), 'order': 'kanban_state', 'sequence': 6},
             'priority': {'label': _('Priority'), 'order': 'priority desc', 'sequence': 7},
             'date_deadline': {'label': _('Deadline'), 'order': 'date_deadline asc', 'sequence': 8},
-            'planned_date_begin': {'label': _('Start Date'), 'order': 'planned_date_begin asc', 'sequence': 9},
-            'update': {'label': _('Last Stage Update'), 'order': 'date_last_stage_update desc', 'sequence': 10},
+            'update': {'label': _('Last Stage Update'), 'order': 'date_last_stage_update desc', 'sequence': 11},
+            'planned_date_begin': {'label': _('Start Date'), 'order': 'planned_date_begin asc', 'sequence': 12},
+            'planned_date_end': {'label': _('End Date'), 'order': 'planned_date_end asc', 'sequence': 13},
         }
 
     def _service_get_searchbar_groupby(self):
@@ -67,6 +68,8 @@ class CustomerPortalFieldServiceInherit(CustomerPortal):
             'priority': {'input': 'priority', 'label': _('Priority'), 'order': 6},
             'customer': {'input': 'customer', 'label': _('Customer'), 'order': 9},
             'planned_date_begin': {'input': 'planned_date_begin', 'label': _('Start Date'), 'order': 10},
+            'planned_date_end': {'input': 'planned_date_begin', 'label': _('End Date'), 'order': 11},
+
         }
         return dict(sorted(values.items(), key=lambda item: item[1]["order"]))
 
@@ -76,8 +79,9 @@ class CustomerPortalFieldServiceInherit(CustomerPortal):
             'stage': 'stage_id',
             'customer': 'partner_id',
             'priority': 'priority',
-            'status': 'kanban_state',
             'planned_date_begin': 'planned_date_begin',
+            'planned_date_begin': 'planned_date_begin',
+            'status': 'kanban_state',
         }
 
     def _service_get_order(self, order, groupby):
@@ -164,7 +168,7 @@ class CustomerPortalFieldServiceInherit(CustomerPortal):
 
         # default sort by value
         if not sortby:
-            sortby = 'date'
+            sortby = 'planned_date_begin'
         order = searchbar_sortings[sortby]['order']
 
         # default filter by value
