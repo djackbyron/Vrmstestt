@@ -51,7 +51,10 @@
                             </th>
                             <th t-if="groupby == 'planned_date_begin'">
                                 <em class="font-weight-normal text-muted">
+<<<<<<< Updated upstream
                                     <span t-field="tasks[0].sudo().planned_date_begin" t-options='{"widget": "date"}'/>
+=======
+>>>>>>> Stashed changes
                                     Start Date:
                                 </em>
                                 <span class="text-truncate" t-field="tasks[0].sudo().planned_date_begin"
@@ -59,7 +62,10 @@
                             </th>
                             <th t-if="groupby == 'planned_date_end'">
                                 <em class="font-weight-normal text-muted">
+<<<<<<< Updated upstream
                                     <span t-field="tasks[0].sudo().planned_date_end" t-options='{"widget": "date"}'/>
+=======
+>>>>>>> Stashed changes
                                     End Date:
                                 </em>
                                 <span class="text-truncate" t-field="tasks[0].sudo().planned_date_end"
@@ -329,15 +335,17 @@
                 </t>
             </t>
 
-            <!--            <div class="mt32">-->
-            <!--                <h4><strong>Message and communication history</strong></h4>-->
-            <!--                <t t-call="portal.message_thread">-->
-            <!--                    <t t-set="object" t-value="service"/>-->
-            <!--                    <t t-set="token" t-value="service.access_token"/>-->
-            <!--                    <t t-set="pid" t-value="pid"/>-->
-            <!--                    <t t-set="hash" t-value="hash"/>-->
-            <!--                </t>-->
-            <!--            </div>-->
+            <div class="mt32">
+                <h4>
+                    <strong>Message and communication history</strong>
+                </h4>
+                <t t-call="portal.message_thread">
+                    <t t-set="object" t-value="service"/>
+                    <t t-set="token" t-value="service.access_token"/>
+                    <t t-set="pid" t-value="pid"/>
+                    <t t-set="hash" t-value="hash"/>
+                </t>
+            </div>
         </t>
     </template>
 

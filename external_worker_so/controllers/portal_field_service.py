@@ -179,7 +179,7 @@ class CustomerPortalFieldServiceInherit(CustomerPortal):
 
         # default group by value
         if not groupby:
-            groupby = 'project'
+            groupby = 'planned_date_begin'
 
         if date_begin and date_end:
             domain += [('create_date', '>', date_begin), ('create_date', '<=', date_end)]
@@ -191,8 +191,9 @@ class CustomerPortalFieldServiceInherit(CustomerPortal):
         ServiceSudo = request.env['project.task'].sudo()
         domain = AND([domain, request.env['ir.rule']._compute_domain(ServiceSudo._name, 'read')])
 
-        # task count
+        # service count
         service_count = ServiceSudo.search_count(domain)
+        print("--------------------", domain)
         # pager
         pager = portal_pager(
             url="/my/services",
@@ -210,6 +211,7 @@ class CustomerPortalFieldServiceInherit(CustomerPortal):
 
         groupby_mapping = self._service_get_groupby_mapping()
         group = groupby_mapping.get(groupby)
+        print("--------------------grouped_tasks", group)
         if group:
             grouped_tasks = [request.env['project.task'].concat(*g) for k, g in
                              groupbyelem(services, itemgetter(group))]
