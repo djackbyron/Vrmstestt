@@ -55,8 +55,8 @@ class CustomerPortalFieldServiceInherit(CustomerPortal):
             'priority': {'label': _('Priority'), 'order': 'priority desc', 'sequence': 7},
             'date_deadline': {'label': _('Deadline'), 'order': 'date_deadline asc', 'sequence': 8},
             'update': {'label': _('Last Stage Update'), 'order': 'date_last_stage_update desc', 'sequence': 11},
-            'planned_date_begin': {'label': _('Start Date'), 'order': 'planned_date_begin asc', 'sequence': 12},
-            'planned_date_end': {'label': _('End Date'), 'order': 'planned_date_end asc', 'sequence': 13},
+            'planned_date_begin': {'label': _('Start Date'), 'order': 'planned_date_begin desc', 'sequence': 12},
+            'planned_date_end': {'label': _('End Date'), 'order': 'planned_date_end desc', 'sequence': 13},
         }
 
     def _service_get_searchbar_groupby(self):
@@ -68,8 +68,7 @@ class CustomerPortalFieldServiceInherit(CustomerPortal):
             'priority': {'input': 'priority', 'label': _('Priority'), 'order': 6},
             'customer': {'input': 'customer', 'label': _('Customer'), 'order': 9},
             'planned_date_begin': {'input': 'planned_date_begin', 'label': _('Start Date'), 'order': 10},
-            'planned_date_end': {'input': 'planned_date_begin', 'label': _('End Date'), 'order': 11},
-
+            'planned_date_end': {'input': 'planned_date_end', 'label': _('End Date'), 'order': 11},
         }
         return dict(sorted(values.items(), key=lambda item: item[1]["order"]))
 
@@ -80,7 +79,7 @@ class CustomerPortalFieldServiceInherit(CustomerPortal):
             'customer': 'partner_id',
             'priority': 'priority',
             'planned_date_begin': 'planned_date_begin',
-            'planned_date_begin': 'planned_date_begin',
+            'planned_date_end': 'planned_date_end',
             'status': 'kanban_state',
         }
 
@@ -216,6 +215,7 @@ class CustomerPortalFieldServiceInherit(CustomerPortal):
                              groupbyelem(services, itemgetter(group))]
         else:
             grouped_tasks = [services]
+        print("--------------------grouped_tasks", grouped_tasks)
 
         task_states = dict(request.env['project.task']._fields['kanban_state']._description_selection(request.env))
         if sortby == 'status':
@@ -255,4 +255,35 @@ class CustomerPortalFieldServiceInherit(CustomerPortal):
         for attachment in service_sudo.attachment_ids:
             attachment.generate_access_token()
         values = self._service_get_page_view_values(service_sudo, access_token, **kw)
+        portal_task_id = request.env['project.task'].browse(service_id)
+
+        # start
+        if portal_task_id.display_timer_start_primary:
+            values['start_timer_visible'] = True
+        else:
+            values['start_timer_visible'] = False
+
+        # start secondary
+        if portal_task_id.display_timer_start_secondary:
+            values['start_sec_timer_visible'] = True
+        else:
+            values['start_sec_timer_visible'] = False
+
+        # stop
+        if portal_task_id.display_timer_stop:
+            values['stop_timer_visible'] = True
+        else:
+            values['stop_timer_visible'] = False
+
+        # pause
+        if portal_task_id.display_timer_pause:
+            values['pause_timer_visible'] = True
+        else:
+            values['pause_timer_visible'] = False
+
+        # resume
+        if portal_task_id.display_timer_resume:
+            values['resume_timer_visible'] = True
+        else:
+            values['resume_timer_visible'] = False
         return request.render("external_worker_so.portal_my_service", values)
