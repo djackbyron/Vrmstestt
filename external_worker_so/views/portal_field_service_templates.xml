@@ -51,10 +51,6 @@
                             </th>
                             <th t-if="groupby == 'planned_date_begin'">
                                 <em class="font-weight-normal text-muted">
-<<<<<<< Updated upstream
-                                    <span t-field="tasks[0].sudo().planned_date_begin" t-options='{"widget": "date"}'/>
-=======
->>>>>>> Stashed changes
                                     Start Date:
                                 </em>
                                 <span class="text-truncate" t-field="tasks[0].sudo().planned_date_begin"
@@ -62,10 +58,6 @@
                             </th>
                             <th t-if="groupby == 'planned_date_end'">
                                 <em class="font-weight-normal text-muted">
-<<<<<<< Updated upstream
-                                    <span t-field="tasks[0].sudo().planned_date_end" t-options='{"widget": "date"}'/>
-=======
->>>>>>> Stashed changes
                                     End Date:
                                 </em>
                                 <span class="text-truncate" t-field="tasks[0].sudo().planned_date_end"
