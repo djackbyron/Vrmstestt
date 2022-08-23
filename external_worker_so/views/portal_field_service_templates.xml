@@ -269,12 +269,12 @@
                                 <t t-call="external_worker_so.portal_my_service_planned_hours_template"/>
                             </div>
                             <div t-if="service.planned_date_begin">
-                                <strong>Planned Date:</strong>
-                                <span t-field="service.planned_date_begin" t-options='{"widget": "date"}'/>
+                                <strong>Start Date:</strong>
+                                <span t-field="service.planned_date_begin"/>
                             </div>
                             <div t-if="service.planned_date_end">
-                                <strong>Planned End Date:</strong>
-                                <span t-field="service.planned_date_end" t-options='{"widget": "date"}'/>
+                                <strong>End Date:</strong>
+                                <span t-field="service.planned_date_end"/>
                             </div>
                         </div>
                         <div class="col-12 col-md-6" name="portal_my_task_second_column"></div>
