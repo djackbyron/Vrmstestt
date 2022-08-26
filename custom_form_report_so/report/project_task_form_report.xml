@@ -15,7 +15,7 @@
                 <div class="page">
                     <br/>
                     <t t-foreach="docs" t-as="doc">
-                        <h4 style="margin-top:40px;">
+                        <h4 style="margin-top:65px;">
                             <strong><t t-esc="doc.name"/></strong>
                         </h4>
                         <table width="100%" border="0">
@@ -208,15 +208,21 @@
                         <br/>
                         <strong>Bijzonderheden :</strong>
                         <br/>
-                        <t t-set='line' t-value="doc.print_extra_line()"/>
-                        <t t-if="doc.particularities">
-                            <u style="padding-left:50px;">
-                                <t t-esc="doc.particularities"/>
-                            </u>
-                        </t>
-                        <t t-else="">
-                            <t t-esc="line"/>
-                        </t>
+                        <div class="col-12" style="padding-left: 30px;">
+                             <t t-if="doc.particularities">
+                            <span t-raw="doc.particularities"/>
+                             </t>
+                        </div>
+<!--                        <t t-set='line' t-value="doc.print_extra_line()"/>-->
+<!--                        <t t-if="doc.particularities">-->
+<!--                            <span t-raw="doc.particularities"/>-->
+<!--                            <u style="padding-left:50px;">-->
+<!--                                <t t-esc="doc.particularities"/>-->
+<!--                            </u>-->
+<!--                        </t>-->
+<!--                        <t t-else="">-->
+<!--                            <t t-esc="line"/>-->
+<!--                        </t>-->
                     </t>
                 </div>
             </t>

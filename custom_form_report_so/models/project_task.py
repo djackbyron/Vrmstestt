@@ -13,7 +13,7 @@ class TaskInherit(models.Model):
     hinge_locks_explanation = fields.Char(string="Hang en sluit werk (Toelichting):")
     hinge_locks_explanation1 = fields.Char()
     finish_ral = fields.Char(string="Afwerking (RAL):")
-    particularities = fields.Char(string="Bijzonderheden:")
+    particularities = fields.Html(string="Bijzonderheden:")
     order_type = fields.Selection(
         [('Inmeten', 'Inmeten'), ('Maat afspraak', 'Maat afspraak'), ('Combinatie', 'Combinatie')],
         string='Type order:')
