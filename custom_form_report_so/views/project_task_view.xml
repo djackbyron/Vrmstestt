@@ -26,21 +26,18 @@
                         </group>
                         <group name="group_PPUNo_right" string="Algemene voorwaarden (Hout):">
                             <field name="hinge_locks"/>
-                            <label for="hinge_locks_explanation"/>
-                                <div>
-                                    <field name="hinge_locks_explanation"/>
-                                    <field name="hinge_locks_explanation1" attrs="{'invisible': [('hinge_locks', 'not in', ['Combinatie'])]}"/>
-                                </div>
+<!--                            <label for="hinge_locks_explanation"/>-->
+<!--                                <div>-->
+<!--                                    <field name="hinge_locks_explanation"/>-->
+<!--                                    <field name="hinge_locks_explanation1" attrs="{'invisible': [('hinge_locks', 'not in', ['Combinatie'])]}"/>-->
+<!--                                </div>-->
                             <field name="color_rubber"/>
                             <field name="finishing_types"/>
                             <field name="finish_ral"/>
                         </group>
                     </group>
-                    <group name="group_qhchc">
-                        <group name="note" string="Extra:">
-                            <field name="particularities"/>
-                        </group>
-                        <group name="group_qhchc_right"/>
+                    <group name="group_qhchc" string="Extra:">
+                        <field name="particularities" widget="html"/>
                     </group>
                 </page>
             </xpath>
