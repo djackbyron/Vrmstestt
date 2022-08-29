@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
     <t t-extend="portal.Composer">
-        <t t-jquery="button.o_portal_chatter_composer_btn" t-operation="after">
-            <button t-attf-data-action="/mail/chatter_log_a_note"
-                    class="o_portal_chatter_log_composer_btn btn btn-primary"
-                    type="submit">Log</button>
+        <t t-jquery="div.mt8" t-operation="replace">
+            <div class="mt8">
+                <t t-if="widget.options['res_model'] != 'project.task'">
+                    <button t-attf-data-action="/mail/chatter_post" class="o_portal_chatter_composer_btn btn btn-primary" type="submit">Send</button>
+                </t>
+                <button t-attf-data-action="/mail/chatter_log_a_note"
+                        t-att-data-model="widget.options['res_model']"
+                        class="o_portal_chatter_log_composer_btn btn btn-primary"
+                        type="submit">Log</button>
+                <button class="o_portal_chatter_attachment_btn btn btn-secondary" type="button" title="Add attachment">
+                    <i class="fa fa-paperclip"/>
+                </button>
+            </div>
         </t>
     </t>
 </templates>
