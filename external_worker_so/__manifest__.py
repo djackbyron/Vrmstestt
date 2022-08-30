@@ -18,7 +18,6 @@
         'views/hr_employee_view.xml',
         'views/project_task_view.xml',
         'views/project_task_portal_templates.xml',
-        # 'views/field_service_portal_templates.xml',
         'views/portal_field_service_templates.xml',
     ],
     "images": [],
@@ -26,9 +25,10 @@
         'web._assets_primary_variables': [
         ],
         'web._assets_frontend_helpers': [
-            'external_worker_so/static/src/js/portal_chatter.js',
         ],
         'web.assets_frontend': [
+            # 'external_worker_so/static/src/js/portal_chatter.js',
+            'external_worker_so/static/src/js/portal_composer.js',
             'external_worker_so/static/src/js/portal_project_task.js',
         ],
         'web.assets_tests': [
